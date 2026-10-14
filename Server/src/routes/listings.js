@@ -1,9 +1,11 @@
 const router = require('express').Router();
 const c = require('../controllers/listingController');
+const b = require('../controllers/bookingController');
 const { protect, requireRole } = require('../middleware/auth');
 
 router.get('/', c.getListings);
 router.get('/mine', protect, requireRole('host'), c.getMyListings);
+router.get('/:id/bookings', b.getListingBookedDates);
 router.get('/:id', c.getListing);
 router.post('/', protect, requireRole('host'), c.createListing);
 router.put('/:id', protect, requireRole('host'), c.updateListing);
