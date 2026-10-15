@@ -1,9 +1,10 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import api from '../api/axios';
 import SearchBar from '../components/SearchBar';
 import FilterPanel from '../components/FilterPanel';
 import ListingGrid from '../components/ListingGrid';
+import ListingsMap from '../components/ListingsMap';
 import Pagination from '../components/Pagination';
 
 export default function Home() {
@@ -12,6 +13,7 @@ export default function Home() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [retry, setRetry] = useState(0);
+  const [view, setView] = useState('list');
 
   const query = params.toString();
   const page = Number(params.get('page') || 1);
@@ -28,35 +30,43 @@ export default function Home() {
     return () => { cancelled = true; };
   }, [query, retry]);
 
-  // URL ke params update karne ka helper
   const update = (changes) => {
     const next = new URLSearchParams(params);
     Object.entries(changes).forEach(([key, value]) => {
       if (value === '' || value == null) next.delete(key);
       else next.set(key, value);
     });
-    if (!('page' in changes)) next.delete('page'); // filter badle to page 1 se shuru
+    if (!('page' in changes)) next.delete('page');
     setParams(next);
   };
 
   const clearAll = () => setParams(new URLSearchParams());
+  const items = useMemo(() => data.items, [data.items]);
 
   return (
     <main className="container">
       <SearchBar key={`s-${query}`} params={params} onSearch={update} />
       <FilterPanel key={`f-${query}`} params={params} onApply={update} onClear={clearAll} />
 
-      {!loading && !error && (
-        <p className="muted result-count">{data.total} stays found</p>
-      )}
+      <div className="view-bar">
+        {!loading && !error && <p className="muted">{data.total} stays found</p>}
+        <div className="toggle">
+          <button className={view === 'list' ? 'btn btn-primary' : 'btn btn-outline'} onClick={() => setView('list')}>List</button>
+          <button className={view === 'map' ? 'btn btn-primary' : 'btn btn-outline'} onClick={() => setView('map')}>Map</button>
+        </div>
+      </div>
 
-      <ListingGrid
-        items={data.items}
-        loading={loading}
-        error={error}
-        onRetry={() => setRetry((r) => r + 1)}
-        onClear={clearAll}
-      />
+      {view === 'list' || loading || error ? (
+        <ListingGrid
+          items={items}
+          loading={loading}
+          error={error}
+          onRetry={() => setRetry((r) => r + 1)}
+          onClear={clearAll}
+        />
+      ) : (
+        <ListingsMap items={items} />
+      )}
 
       <Pagination page={page} pages={data.pages} onChange={(p) => update({ page: p })} />
     </main>

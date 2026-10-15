@@ -13,8 +13,8 @@ app.get('/api/health', (req, res) => res.json({ status: 'ok' }));
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/listings', require('./routes/listings'));
 app.use('/api/bookings', require('./routes/bookings'));
+app.use('/api/host', require('./routes/host'));
 
 app.use(notFound);
 app.use(errorHandler);
-
 module.exports = app;

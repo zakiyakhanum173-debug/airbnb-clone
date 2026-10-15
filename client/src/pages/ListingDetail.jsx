@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import api from '../api/axios';
 import BookingWidget from '../components/BookingWidget';
+import Reviews from '../components/Reviews';
 
 const FALLBACK = 'https://placehold.co/900x500?text=No+Image';
 
@@ -72,6 +73,10 @@ export default function ListingDetail() {
 
         <BookingWidget listing={listing} bookedRanges={booked} onRefresh={loadBooked} />
       </div>
+            <Reviews
+        listingId={id}
+        onAdded={() => api.get(`/listings/${id}`).then((r) => setListing(r.data))}
+      />
     </main>
   );
 }
