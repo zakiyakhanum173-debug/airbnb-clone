@@ -16,6 +16,7 @@ export default function Navbar() {
       <nav className="nav-links">
         {user ? (
           <>
+            <Link to="/my-trips" className="btn btn-outline">My trips</Link>
             <span className="hello">Hi, {user.name} ({user.role})</span>
             <button className="btn btn-outline" onClick={handleLogout}>Logout</button>
           </>

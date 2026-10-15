@@ -57,3 +57,34 @@ a { color: inherit; text-decoration: none; }
 .auth-box input, .auth-box select { padding: 11px 14px; border: 1px solid #ddd; border-radius: 8px; font-size: 15px; }
 .auth-box a { color: #ff385c; font-weight: 600; }
 .error { color: #d93025; font-size: 14px; }
+/* Listing detail */
+.detail-title { margin: 8px 0 4px; font-size: 28px; }
+.detail-img { width: 100%; max-height: 440px; object-fit: cover; border-radius: 14px; margin: 16px 0 24px; background: #eee; }
+.detail-layout { display: grid; grid-template-columns: 1fr 360px; gap: 40px; align-items: start; }
+.detail-layout h3 { margin-bottom: 6px; }
+.detail-layout hr { border: 0; border-top: 1px solid #eee; margin: 18px 0; }
+.amenities { list-style: none; display: grid; grid-template-columns: repeat(2, 1fr); gap: 6px; }
+@media (max-width: 860px) { .detail-layout { grid-template-columns: 1fr; } }
+
+/* Booking widget */
+.booking-box { background: #fff; border: 1px solid #e5e5e5; border-radius: 14px; padding: 20px; box-shadow: 0 4px 16px rgba(0,0,0,0.08); position: sticky; top: 80px; }
+.booking-box .price { font-size: 20px; margin-bottom: 12px; }
+.booking-box .react-datepicker { border: 0; font-family: inherit; width: 100%; }
+.booking-box .react-datepicker__month-container { width: 100%; float: none; }
+.booking-box input[type='number'] { width: 100%; padding: 10px 12px; border: 1px solid #ddd; border-radius: 8px; margin: 6px 0 12px; }
+.field-label { font-size: 13px; font-weight: 600; display: block; margin-top: 12px; }
+.price-summary { border-top: 1px solid #eee; margin: 12px 0; padding-top: 10px; }
+.price-summary > div { display: flex; justify-content: space-between; padding: 5px 0; gap: 12px; }
+.price-summary .total { font-weight: 700; border-top: 1px solid #eee; margin-top: 6px; padding-top: 10px; }
+.btn.full { width: 100%; margin-top: 8px; }
+.center { text-align: center; margin-top: 8px; }
+.row-gap { display: flex; gap: 10px; margin-top: 18px; flex-wrap: wrap; }
+
+/* My trips */
+.section-title { margin: 24px 0 12px; font-size: 20px; }
+.trip { display: flex; gap: 16px; background: #fff; border-radius: 14px; padding: 14px; margin-bottom: 14px; box-shadow: 0 1px 6px rgba(0,0,0,0.08); }
+.trip img { width: 200px; height: 140px; object-fit: cover; border-radius: 10px; background: #eee; }
+.trip-info { display: flex; flex-direction: column; gap: 4px; align-items: flex-start; }
+.trip-info a { color: #222; }
+.trip-info a:hover { text-decoration: underline; }
+@media (max-width: 600px) { .trip { flex-direction: column; } .trip img { width: 100%; } }

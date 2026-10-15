@@ -1,10 +1,11 @@
 import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 
 export default function Register() {
   const { register } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
   const [form, setForm] = useState({ name: '', email: '', password: '', role: 'guest' });
   const [error, setError] = useState('');
   const [busy, setBusy] = useState(false);
@@ -17,7 +18,7 @@ export default function Register() {
     setBusy(true);
     try {
       await register(form);
-      navigate('/');
+      navigate(location.state?.from || '/');
     } catch (err) {
       setError(err.response?.data?.message || 'Registration failed');
     } finally {
