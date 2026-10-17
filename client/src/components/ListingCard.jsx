@@ -11,6 +11,8 @@ export default function ListingCard({ listing }) {
         src={images?.[0] || FALLBACK}
         alt={title}
         loading="lazy"
+         width="600"
+         height="400"
         onError={(e) => { e.currentTarget.src = FALLBACK; }}
       />
       <div className="card-body">
